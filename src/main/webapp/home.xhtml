@@ -1,0 +1,46 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets" template="template.xhtml">
+
+    <ui:define name="content">
+        <p>#{home.pageTitle}</p>
+        <h:form id="form">
+            <f:metadata>
+                <f:viewAction action="#{home.init}"/>
+            </f:metadata>
+            <p:growl id="growl" showDetail="true"/>
+            <p:panel header="Search">
+
+                <p:selectBooleanCheckbox value="select" itemLabel="Check me!" />
+                <p:separator id="separator"/> 
+            </p:panel>
+            <p:dataTable id="jobsTable" var="job" value="#{home.jobDataModel}" selection="#{home.selectedJob}" selectionMode="single" rowKey="#{job.id}">
+                <p:ajax event="rowSelect" listener="#{home.onRowSelect}" update=":form:growl :form:details" />
+                <f:facet name="header">
+                    Last 10 Jobs with Errors
+                </f:facet>
+                <p:column headerText="Status">
+                    <h:outputText value="#{job.status}" />
+                </p:column>
+
+                <p:column headerText="Description">
+                    <h:outputText value="#{job.descr}" />
+                </p:column>
+
+                <p:column headerText="Status">
+                    <h:outputText value="#{job.status}" />
+                </p:column>
+            </p:dataTable>
+            <p:panel id="details">
+                #{!empty home.selectedJob}
+                <p:outputLabel value="#{home.selectedJob}"/>
+            </p:panel>
+            <p:commandButton action="#{home.update}" value="Update" update=":form:jobsTable :form:details"/>
+        </h:form>
+    </ui:define>
+</ui:composition>

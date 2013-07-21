@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Testapp</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </h:head>
+    <h:body>
+        <h:outputStylesheet library="css" name="main.css" />
+        <h:outputStylesheet library="css" name="bootstrap.min.css" />
+        <div id="container" class="container">
+            <div class="page-header">
+                <h1>Eiocha ADMIN</h1>
+            </div>
+            <div class="row">
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <div class="container">
+                            <div class="nav-collapse collapse">
+                                <ul class="nav">
+                                    <ui:repeat value="#{menu.items}" var="page">
+                                        <li class="#{view.viewId == page.outcome ? 'active' : ''}">
+                                            <h:link value="#{page.title}" outcome="#{page.outcome}" />
+                                        </li>
+                                    </ui:repeat>
+                                </ul>
+                                <p class="navbar-text pull-right">
+                                    Logged in as
+                                    <a class="navbar-link" href="#">Username</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <ui:insert name="content">Page body here</ui:insert>
+            </div>
+        </div>
+    </h:body>
+</html>
